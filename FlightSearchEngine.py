@@ -12,35 +12,17 @@ fl_request = {
     'cities': 'cities'
 }
 city = input("the city of departure: ")
+print("Please wait for proccessing data...")
 
 response = requests.get(
     f"https://app.goflightlabs.com/{fl_request['cities']}?access_key="+fl_key
 )
 data = response.json()['data']
-print(data)
 
 def findCity(city, data):
-    for elem in data:
-        if elem['nameCity'] == city:
-            print(elem)
+    cities_list = [f"{elem['nameCity']} | {elem['codeIso2Country']}" for elem in data if elem['nameCity'] == city]
+    print(cities_list)
+    # for elem in cities_list:
+    #     print(f"{elem['nameCity']} | {elem['codeIso2Country']}")
 
 findCity(city, data)
-
-
-
-# # Opening JSON file
-# f = open('Cities.json')
-
-# # returns JSON object as
-# # a dictionary
-# data = json.load(f)
-
-# # Iterating through the json
-# # list
-# for i in data['data']:
-#     # print(i)
-#     if i['nameCity'] == city:
-#         print(i)
-# # Closing file
-# f.close()
-
