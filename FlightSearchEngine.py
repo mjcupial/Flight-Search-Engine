@@ -11,16 +11,22 @@ fl_request = {
     'countries': 'countries',
     'cities': 'cities'
 }
-city = input("the city of departure: ")
-print("Please wait for proccessing data...")
 
-response = requests.get(
-    f"https://app.goflightlabs.com/{fl_request['cities']}?access_key="+fl_key
-)
-data = response.json()['data']
 
-def find_and_select_city(city, data):
+
+
+def generate_request():
+    """function for generate requests based on fl_request dictionary"""
+def find_and_select_city():
     """Find your city as a 'start airport'"""
+    city = input("the city of departure: ")
+    print("Please wait for proccessing data...")
+
+    response = requests.get(
+        f"https://app.goflightlabs.com/{fl_request['cities']}?access_key=" + fl_key
+    )
+    data = response.json()['data']
+
     cities_list = [f"{elem['nameCity']} | {elem['codeIso2Country']}" for elem in data if elem['nameCity'] == city]
     if bool(cities_list) == False:
         print("Sorry")
@@ -34,5 +40,5 @@ def check_connection(start_airport):
     """Check connection from your 'start airport'"""
     pass
 
-start_airport = find_and_select_city(city, data)
-# print(start_airport)
+start_airport = find_and_select_city()
+print(start_airport)
