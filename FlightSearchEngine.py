@@ -19,10 +19,20 @@ response = requests.get(
 )
 data = response.json()['data']
 
-def findCity(city, data):
+def find_and_select_city(city, data):
+    """Find your city as a 'start airport'"""
     cities_list = [f"{elem['nameCity']} | {elem['codeIso2Country']}" for elem in data if elem['nameCity'] == city]
-    print(cities_list)
-    # for elem in cities_list:
-    #     print(f"{elem['nameCity']} | {elem['codeIso2Country']}")
+    if bool(cities_list) == False:
+        print("Sorry")
+    return cities_list
 
-findCity(city, data)
+def find_airport():
+    """Show the list of available airports for choosen city"""
+    pass
+
+def check_connection(start_airport):
+    """Check connection from your 'start airport'"""
+    pass
+
+start_airport = find_and_select_city(city, data)
+# print(start_airport)
