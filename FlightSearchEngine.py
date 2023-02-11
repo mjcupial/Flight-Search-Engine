@@ -39,7 +39,10 @@ TEMP_VAR = ['Paris | FR', 'Paris | US', 'Paris | US']
 def find_airport(cities_list):
     """Show the list of available airports for choosen city"""
     print(cities_list)
-    # print([i for i in cities])
+    print([(i, city) for i, city in enumerate(cities_list, start = 1)])
+    print([f"{i}: {city}" for i, city in enumerate(cities_list, start = 1)])
+    for i, city in enumerate(cities_list, start = 1):
+        print(f"{i}: {city}")
 
 
 def check_connection():
