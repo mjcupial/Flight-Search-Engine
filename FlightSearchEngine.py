@@ -23,17 +23,18 @@ def generate_request(fl_request_key):
     data = response.json()['data']
     return data
 
-def find_and_select_city(cities):
+def find_and_select_city():
     """Find your city as a 'start airport'"""
     city = input("the city of departure: ")
+    city = city[0].upper() + city[1:].lower()
     print("Please wait for proccessing data...")
-
-
-
+    cities = generate_request('cities')
     cities_list = [f"{elem['nameCity']} | {elem['codeIso2Country']}" for elem in cities if elem['nameCity'] == city]
     if bool(cities_list) == False:
-        print("Sorry")
-    return cities_list
+        print(f"Sorry, but {city} city doesn't exists on the list")
+    else:
+        print(cities_list)
+        return cities_list
 
 def find_airport():
     """Show the list of available airports for choosen city"""
@@ -44,7 +45,5 @@ def check_connection(start_airport):
     pass
 
 
-print(generate_request.__doc__)
-cities = generate_request('cities')
-start_airport = find_and_select_city(cities)
-print(start_airport)
+# print(generate_request.__doc__)
+start_airport = find_and_select_city()
