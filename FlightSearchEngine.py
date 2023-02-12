@@ -48,7 +48,7 @@ def find_and_select_city():
             codeIataCity = elem_cities['codeIataCity']
             for elem_airports in airports:
                 if elem_airports['codeIataCity'] == codeIataCity:
-                    print(f"{elem_cities['nameCity']} | {elem_airports['nameAirport']}")
+                    print(f"country: {elem_airports['nameCountry']} | city: {elem_cities['nameCity']} | airport: {elem_airports['nameAirport']}")
 
 
 def find_airport(cities_list):
