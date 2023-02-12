@@ -31,20 +31,25 @@ def find_and_select_city():
     cities = generate_request('cities')
     airports = generate_request('airports')
     cities_list = []
-    for elem in cities:
-        if elem['nameCity'] == city:
-            cities_list.append(f"{elem['nameCity']} | {elem['codeIso2Country']}")
-            print(f"{elem['nameCity']} | {elem['codeIso2Country']}")
-            codeIataCity = elem['codeIataCity']
-            for elem in airports:
-                if elem['codeIataCity'] == codeIataCity:
-                    print(f"{elem['nameCountry']} --- {elem['nameAirport']}")
-    # cities_list = [f"{elem['nameCity']} | {elem['codeIso2Country']}" for elem in cities if elem['nameCity'] == city]
-    if bool(cities_list) == False:
-        print(f"Sorry, but {city} city doesn't exists on the list")
-    else:
-        print(cities_list)
-        return cities_list
+    for elem_cities in cities:
+        if elem_cities['nameCity'] == city:
+    #         cities_list.append(f"{elem['nameCity']} | {elem['codeIso2Country']}")
+    #         print(f"{elem['nameCity']} | {elem['codeIso2Country']}")
+    #         codeIataCity = elem['codeIataCity']
+    #         for elem in airports:
+    #             if elem['codeIataCity'] == codeIataCity:
+    #                 print(f"{elem['nameCountry']} --- {elem['nameAirport']}")
+    # # cities_list = [f"{elem['nameCity']} | {elem['codeIso2Country']}" for elem in cities if elem['nameCity'] == city]
+    # if bool(cities_list) == False:
+    #     print(f"Sorry, but {city} city doesn't exists on the list")
+    # else:
+    #     print(cities_list)
+    #     return cities_list
+            codeIataCity = elem_cities['codeIataCity']
+            for elem_airports in airports:
+                if elem_airports['codeIataCity'] == codeIataCity:
+                    print(f"{elem_cities['nameCity']} | {elem_airports['nameAirport']}")
+
 
 def find_airport(cities_list):
     """Show the list of available airports for choosen city"""
