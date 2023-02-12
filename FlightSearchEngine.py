@@ -23,42 +23,38 @@ def generate_request(fl_request_key):
     data = response.json()['data']
     return data
 
-def find_and_select_city():
-    """Find your city as a 'start airport'"""
-    city = input("the city of departure: ")
+def find_city_and_airport():
+    """Type your city and find departure airport"""
+    city = input("Please type departure city: ")
     city = city[0].upper() + city[1:].lower()
     print("Please wait for proccessing data...")
     cities = generate_request('cities')
     airports = generate_request('airports')
-    cities_list = []
-    for elem in cities:
-        if elem['nameCity'] == city:
-            cities_list.append(f"{elem['nameCity']} | {elem['codeIso2Country']}")
-            print(f"{elem['nameCity']} | {elem['codeIso2Country']}")
-            codeIataCity = elem['codeIataCity']
-            for elem in airports:
-                if elem['codeIataCity'] == codeIataCity:
-                    print(f"{elem['nameCountry']} --- {elem['nameAirport']}")
-    # cities_list = [f"{elem['nameCity']} | {elem['codeIso2Country']}" for elem in cities if elem['nameCity'] == city]
-    if bool(cities_list) == False:
+    airports_lst = []
+    for elem_cities in cities:
+        if elem_cities['nameCity'] == city:
+            codeIataCity = elem_cities['codeIataCity']
+            for elem_airports in airports:
+                if elem_airports['codeIataCity'] == codeIataCity:
+                    tpl = (
+                        elem_airports['nameCountry'],
+                        elem_cities['codeIso2Country'],
+                        elem_cities['nameCity'],
+                        elem_cities['codeIataCity'],
+                        elem_airports['nameAirport'],
+                        elem_airports['codeIataAirport'],
+                        elem_airports['codeIcaoAirport']
+                    )
+                    airports_lst.append(tpl)
+                    # print(f"country: {elem_airports['nameCountry']} | city: {elem_cities['nameCity']} | airport: {elem_airports['nameAirport']}")
+    if bool(airports_lst) == False:
         print(f"Sorry, but {city} city doesn't exists on the list")
     else:
-        print(cities_list)
-        return cities_list
-
-def find_airport(cities_list):
-    """Show the list of available airports for choosen city"""
-    print(cities_list)
-    print([(i, city) for i, city in enumerate(cities_list, start = 1)])
-    print([f"{i}: {city}" for i, city in enumerate(cities_list, start = 1)])
-    for i, city in enumerate(cities_list, start = 1):
-        print(f"{i}: {city}")
-
+        print(airports_lst)
+        return airports_lst
 
 def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_and_select_city()
-# find_airport(cities_list)
-# find_airport(TEMP_VAR)
+cities_list = find_city_and_airport()
