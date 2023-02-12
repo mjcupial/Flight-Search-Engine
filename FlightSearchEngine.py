@@ -36,7 +36,15 @@ def find_city_and_airport():
             codeIataCity = elem_cities['codeIataCity']
             for elem_airports in airports:
                 if elem_airports['codeIataCity'] == codeIataCity:
-                    tpl = (elem_airports['nameCountry'], elem_cities['nameCity'], elem_airports['nameAirport'])
+                    tpl = (
+                        elem_airports['nameCountry'],
+                        elem_cities['codeIso2Country'],
+                        elem_cities['nameCity'],
+                        elem_cities['codeIataCity'],
+                        elem_airports['nameAirport'],
+                        elem_airports['codeIataAirport'],
+                        elem_airports['codeIcaoAirport']
+                    )
                     airports_lst.append(tpl)
                     # print(f"country: {elem_airports['nameCountry']} | city: {elem_cities['nameCity']} | airport: {elem_airports['nameAirport']}")
     if bool(airports_lst) == False:
