@@ -12,8 +12,13 @@ fl_request = {
     'cities': 'cities'
 }
 
-TEMP_VAR = ['Paris | FR', 'Paris | US', 'Paris | US']
-
+def check_req_limit():
+    """Check if the amount of requests per month has exceeded the limit"""
+    response = requests.get(
+        f"https://app.goflightlabs.com/flights?access_key=" + fl_key
+    )
+    data = response.json()
+    print(data)
 
 def generate_request(fl_request_key):
     """function for generate requests based on fl_request dictionary"""
@@ -57,4 +62,5 @@ def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport('Paris')
+check_req_limit()
+# cities_list = find_city_and_airport('Paris')
