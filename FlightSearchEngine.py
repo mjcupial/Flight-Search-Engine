@@ -62,5 +62,5 @@ def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-check_req_limit()
-# cities_list = find_city_and_airport('Paris')
+cities_list = find_city_and_airport('Paris')
+print(cities_list)
