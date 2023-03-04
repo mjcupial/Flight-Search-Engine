@@ -12,14 +12,6 @@ fl_request = {
     'cities': 'cities'
 }
 
-def check_req_limit():
-    """Check if the amount of requests per month has exceeded the limit"""
-    response = requests.get(
-        f"https://app.goflightlabs.com/flights?access_key=" + fl_key
-    )
-    data = response.json()
-    print(data)
-
 def generate_request(fl_request_key):
     """function for generate requests based on fl_request dictionary"""
     response = requests.get(
@@ -27,6 +19,11 @@ def generate_request(fl_request_key):
     )
     data = response.json()['data']
     return data
+
+def create_data(input, file_name):
+    with open(f"{file_name}", "w") as file:
+        file.write(str(input))
+        file.close()
 
 def find_city_and_airport(city):
     """Type your city and find departure airport"""
@@ -51,11 +48,10 @@ def find_city_and_airport(city):
                         'codeIcaoAirport':elem_airports['codeIcaoAirport']
                     }
                     airports_lst.append(tpl)
-
+                    create_data(airports_lst, "airports_lst.json")
     if bool(airports_lst) == False:
         print(f"Sorry, but {city} city doesn't exists on the list")
     else:
-        print(airports_lst)
         return airports_lst
 
 def check_connection():
