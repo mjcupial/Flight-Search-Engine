@@ -18,10 +18,9 @@ def generate_request(fl_request_key):
         f"https://app.goflightlabs.com/{fl_request[fl_request_key]}?access_key=" + fl_key
     )
     data = response.json()['data']
-    print(type(data))
     return data
 
-def create_data(input, file_name):
+def return_data_to_file(input, file_name):
     with open(f"{file_name}", "w") as file:
         file.write(str(input))
         file.close()
@@ -37,18 +36,17 @@ def find_city_and_airport(city):
     # city = input("Please type departure city: ")
     city = city[0].upper() + city[1:].lower()
     print("Please wait for proccessing data...")
-    cities = read_data("Cities.json")
-    airports = read_data("Airports.json")
-    # cities = generate_request('cities')
-    # airports = generate_request('airports')
-    print(type(cities))
-    airports_lst = []
+    cities = read_data("Cities.json")           # <-- from file
+    airports = read_data("Airports.json")       # <-- from file
+    # cities = generate_request('cities')       # <-- origin
+    # airports = generate_request('airports')   # <-- origin
+    city_and_airport = []
     for elem_cities in cities:
         if elem_cities['nameCity'] == city:
             codeIataCity = elem_cities['codeIataCity']
             for elem_airports in airports:
                 if elem_airports['codeIataCity'] == codeIataCity:
-                    tpl = {
+                    tpl_city_and_airport = {
                         'nameCountry':elem_airports['nameCountry'],
                         'codeIso2Country':elem_cities['codeIso2Country'],
                         'nameCity':elem_cities['nameCity'],
@@ -57,16 +55,16 @@ def find_city_and_airport(city):
                         'codeIataAirport':elem_airports['codeIataAirport'],
                         'codeIcaoAirport':elem_airports['codeIcaoAirport']
                     }
-                    airports_lst.append(tpl)
-                    create_data(airports_lst, "airports_lst.json")
-    if bool(airports_lst) == False:
+                    city_and_airport.append(tpl_city_and_airport)
+                    return_data_to_file(city_and_airport, "cities_and_airports.json")
+    if bool(city_and_airport) == False:
         print(f"Sorry, but {city} city doesn't exists on the list")
     else:
-        return airports_lst
+        return city_and_airport
 
 def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport("PARis")
+cities_list = find_city_and_airport("PAris")
 print(cities_list)
