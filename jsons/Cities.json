@@ -1,6 +1,4 @@
-{
-   "success":true,
-   "data":[
+[
       {
          "GMT":"-10",
          "cityId":1,
@@ -103072,4 +103070,3 @@
          "timezone":"America\/Fortaleza"
       }
    ]
-}

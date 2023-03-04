@@ -18,6 +18,7 @@ def generate_request(fl_request_key):
         f"https://app.goflightlabs.com/{fl_request[fl_request_key]}?access_key=" + fl_key
     )
     data = response.json()['data']
+    print(type(data))
     return data
 
 def create_data(input, file_name):
@@ -25,13 +26,22 @@ def create_data(input, file_name):
         file.write(str(input))
         file.close()
 
+def read_data(input):
+    with open(f"jsons/{input}", "r") as file:
+        data = json.load(file)
+        file.close()
+        return data
+
 def find_city_and_airport(city):
     """Type your city and find departure airport"""
     # city = input("Please type departure city: ")
     city = city[0].upper() + city[1:].lower()
     print("Please wait for proccessing data...")
-    cities = generate_request('cities')
-    airports = generate_request('airports')
+    cities = read_data("Cities.json")
+    airports = read_data("Airports.json")
+    # cities = generate_request('cities')
+    # airports = generate_request('airports')
+    print(type(cities))
     airports_lst = []
     for elem_cities in cities:
         if elem_cities['nameCity'] == city:
@@ -58,5 +68,5 @@ def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport('Paris')
+cities_list = find_city_and_airport("PARis")
 print(cities_list)
