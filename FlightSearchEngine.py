@@ -31,6 +31,24 @@ def read_data(input):
         file.close()
         return data
 
+def delete_duplicates_city_and_airports(data):
+    unique_data = {}
+    for item in data:
+        if item["nameCountry"] in unique_data:
+            unique_data[item["nameCountry"]]["nameAirport"].append(item["nameAirport"])
+        else:
+            unique_data[item["nameCountry"]] = {
+                "nameCountry": item["nameCountry"],
+                "codeIso2Country": item["codeIso2Country"],
+                "nameCity": item["nameCity"],
+                "codeIataCity": item["codeIataCity"],
+                "nameAirport": [item["nameAirport"]],
+                "codeIataAirport": item["codeIataAirport"],
+                "codeIcaoAirport": item["codeIcaoAirport"]
+            }
+    unique_list = list(unique_data.values())
+    return unique_list
+
 def find_city_and_airport(city):
     """Type your city and find departure airport"""
     # city = input("Please type departure city: ")
