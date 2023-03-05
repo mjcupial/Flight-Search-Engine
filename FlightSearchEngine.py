@@ -74,7 +74,8 @@ def find_city_and_airport(city):
                         'codeIcaoAirport':elem_airports['codeIcaoAirport']
                     }
                     city_and_airport.append(tpl_city_and_airport)
-                    return_data_to_file(city_and_airport, "cities_and_airports.json")
+    city_and_airport = delete_duplicates_city_and_airports(city_and_airport)
+    return_data_to_file(city_and_airport, "cities_and_airports.json")
     if bool(city_and_airport) == False:
         print(f"Sorry, but {city} city doesn't exists on the list")
     else:
