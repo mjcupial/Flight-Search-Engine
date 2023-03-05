@@ -32,20 +32,24 @@ def read_data(input):
         return data
 
 def delete_duplicates_city_and_airports(data):
+    """Delete duplicates and format data for city_and_airport"""
     unique_data = {}
-    for item in data:
-        if item["nameCountry"] in unique_data:
-            unique_data[item["nameCountry"]]["nameAirport"].append(item["nameAirport"])
-        else:
-            unique_data[item["nameCountry"]] = {
-                "nameCountry": item["nameCountry"],
-                "codeIso2Country": item["codeIso2Country"],
-                "nameCity": item["nameCity"],
-                "codeIataCity": item["codeIataCity"],
-                "nameAirport": [item["nameAirport"]],
-                "codeIataAirport": item["codeIataAirport"],
-                "codeIcaoAirport": item["codeIcaoAirport"]
+    for elem in data:
+        key = (elem['nameCountry'], elem['nameCity'])
+        if key not in unique_data:
+            unique_data[key] = {
+                'nameCountry': elem['nameCountry'],
+                'codeIso2Country': elem['codeIso2Country'],
+                'nameCity': elem['nameCity'],
+                'codeIataCity': elem['codeIataCity'],
+                'nameAirport': [elem['nameAirport']],
+                'codeIataAirport': [elem['codeIataAirport']],
+                'codeIcaoAirport': [elem['codeIcaoAirport']]
             }
+        else:
+            unique_data[key]['nameAirport'].append(elem['nameAirport'])
+            unique_data[key]['codeIataAirport'].append(elem['codeIataAirport'])
+            unique_data[key]['codeIcaoAirport'].append(elem['codeIcaoAirport'])
     unique_list = list(unique_data.values())
     return unique_list
 
@@ -85,5 +89,5 @@ def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport("PAris")
+cities_list = find_city_and_airport("London")
 print(cities_list)
