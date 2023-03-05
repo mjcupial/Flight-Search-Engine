@@ -31,6 +31,28 @@ def read_data(input):
         file.close()
         return data
 
+def delete_duplicates_city_and_airports(data):
+    """Delete duplicates and format data for city_and_airport"""
+    unique_data = {}
+    for elem in data:
+        key = (elem['nameCountry'], elem['nameCity'])
+        if key not in unique_data:
+            unique_data[key] = {
+                'nameCountry': elem['nameCountry'],
+                'codeIso2Country': elem['codeIso2Country'],
+                'nameCity': elem['nameCity'],
+                'codeIataCity': elem['codeIataCity'],
+                'nameAirport': [elem['nameAirport']],
+                'codeIataAirport': [elem['codeIataAirport']],
+                'codeIcaoAirport': [elem['codeIcaoAirport']]
+            }
+        else:
+            unique_data[key]['nameAirport'].append(elem['nameAirport'])
+            unique_data[key]['codeIataAirport'].append(elem['codeIataAirport'])
+            unique_data[key]['codeIcaoAirport'].append(elem['codeIcaoAirport'])
+    unique_list = list(unique_data.values())
+    return unique_list
+
 def find_city_and_airport(city):
     """Type your city and find departure airport"""
     # city = input("Please type departure city: ")
@@ -56,7 +78,8 @@ def find_city_and_airport(city):
                         'codeIcaoAirport':elem_airports['codeIcaoAirport']
                     }
                     city_and_airport.append(tpl_city_and_airport)
-                    return_data_to_file(city_and_airport, "cities_and_airports.json")
+    city_and_airport = delete_duplicates_city_and_airports(city_and_airport)
+    return_data_to_file(city_and_airport, "cities_and_airports.json")
     if bool(city_and_airport) == False:
         print(f"Sorry, but {city} city doesn't exists on the list")
     else:
@@ -66,5 +89,5 @@ def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport("PAris")
+cities_list = find_city_and_airport("London")
 print(cities_list)
