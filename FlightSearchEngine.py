@@ -85,9 +85,12 @@ def find_city_and_airport(city):
     else:
         return city_and_airport
 
+def choose_airportp_by_codeIataAirport(place_from):
+    pass
+
 def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport("London")
-print(cities_list)
+cities_list = find_city_and_airport("PAris")
+choose_airport_by_codeIataAirport(cities_list)
