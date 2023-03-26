@@ -85,6 +85,17 @@ def find_city_and_airport(city):
     else:
         return city_and_airport
 
+def format_cities_list(cities_list):
+    """
+    PARIS (France):
+    Charles De Gaulle [CDG] ...
+    """
+    for elem in cities_list:
+        print(f"{elem['nameCity'].upper()} ({elem['nameCountry']}):")
+        for e in elem['nameAirport']:
+            print(f"\t{e} ({elem['codeIataAirport'][elem['nameAirport'].index(e)]})")
+
+
 def choose_airport_from_codeIataAirport(iata_generated):
     iata_from = input("OK! Choose the IATA code for airport: ")
     print(iata_from)
@@ -107,4 +118,6 @@ def check_connection():
     pass
 
 cities_list = find_city_and_airport("PAris")
+# print(cities_list)
+format_cities_list(cities_list)
 choose_airport_from_codeIataAirport(cities_list)
