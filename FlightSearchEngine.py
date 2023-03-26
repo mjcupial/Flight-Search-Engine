@@ -85,9 +85,39 @@ def find_city_and_airport(city):
     else:
         return city_and_airport
 
+def format_cities_list(cities_list):
+    """
+    PARIS (France):
+    Charles De Gaulle [CDG] ...
+    """
+    for elem in cities_list:
+        print(f"{elem['nameCity'].upper()} ({elem['nameCountry']}):")
+        for e in elem['nameAirport']:
+            print(f"\t{e} ({elem['codeIataAirport'][elem['nameAirport'].index(e)]})")
+
+
+def choose_airport_from_codeIataAirport(iata_generated):
+    iata_from = input("OK! Choose the IATA code for airport: ")
+    print(iata_from)
+    # check if iata exists. If not, try again until exists
+    # For IATA generate new data structure and store it under iata_from
+    # create file iata_from
+
+def check_connections_for_iata_from():
+    # using other json check connections for iata_from
+    # print ot for user
+    # call choose_airport_to_codeIAtaAirport() to choose by user airport
+    # check if iata exists. If not, try again until exists
+    # For IATA generate new data structure and store it under iata_to
+    # create file iata_to.json
+    pass
+
+
 def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport("London")
-print(cities_list)
+cities_list = find_city_and_airport("PAris")
+# print(cities_list)
+format_cities_list(cities_list)
+choose_airport_from_codeIataAirport(cities_list)
