@@ -97,13 +97,18 @@ def format_cities_list(cities_list):
 
 
 def choose_airport_from_codeIataAirport(iata_generated):
-    print(iata_generated)
-    # iata_list = [ for elem in iata_generated]
+    iata_list = [airport for iata in iata_generated for airport in iata['codeIataAirport']]
     iata_from = input("Type the IATA code from generated list: ").upper()
-    while iata_from not in iata_generated[0]['codeIataAirport']:
+    while iata_from not in iata_list:
         iata_from = input(f"Your IATA code ({iata_from}) is not on the list. Please type again: ").upper()
-    print(iata_from)
-    # check if iata exists. If not, try again until exists
+    for elem in iata_generated:
+        if iata_from in elem['codeIataAirport']:
+            airport_index = elem['codeIataAirport'].index(iata_from)
+            airport_name = elem['nameAirport'][airport_index]
+            print(f"\nAirport: {iata_from} ({airport_name})")
+            print(f"City: {elem['nameCity']}")
+            print(f"Country: {elem['nameCountry']}")
+
     # For IATA generate new data structure and store it under iata_from / generate link with IATA
     # create file iata_from
 
