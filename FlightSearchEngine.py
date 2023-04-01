@@ -98,7 +98,7 @@ def format_cities_list(cities_list):
 
 def choose_airport_from_codeIataAirport(iata_generated):
     iata_list = [airport for iata in iata_generated for airport in iata['codeIataAirport']]
-    iata_from = input("Type the IATA code from generated list: ").upper()
+    iata_from = input("\nType the IATA code from generated list: ").upper()
     while iata_from not in iata_list:
         iata_from = input(f"Your IATA code ({iata_from}) is not on the list. Please type again: ").upper()
     for elem in iata_generated:
