@@ -98,24 +98,23 @@ def format_cities_list(cities_list):
             print(f"\t{e} | IATA: {elem['codeIataAirport'][elem['nameAirport'].index(e)]}")
 
 
-def choose_airport_from_codeIataAirport(iata_generated):
+def return_specific_airport(iata_generated):
     iata_list = [airport for iata in iata_generated for airport in iata['codeIataAirport']]
-    iata_from = input("\nType the IATA code from generated list: ").upper()
-    while iata_from not in iata_list:
-        iata_from = input(f"Your IATA code ({iata_from}) is not on the list. Please type again: ").upper()
-    for elem in iata_generated:
-        if iata_from in elem['codeIataAirport']:
-            airport_index = elem['codeIataAirport'].index(iata_from)
-            airport_name = elem['nameAirport'][airport_index]
-            print(f"\nAirport: {iata_from} ({airport_name})")
-            print(f"City: {elem['nameCity']}")
-            print(f"Country: {elem['nameCountry']}")
+    print(iata_list)
+    iata = input("\nType the IATA code from generated list: ").upper()
+    while iata not in iata_list:
+        iata = input(f"Your IATA code ({iata}) is not on the list. Please type again: ").upper()
+    # for elem in iata_generated:
+    #     if iata in elem['codeIataAirport']:
+    #         airport_index = elem['codeIataAirport'].index(iata)
+    #         airport_name = elem['nameAirport'][airport_index]
+    #         print(f"\nAirport: {iata} ({airport_name})")
+    #         print(f"City: {elem['nameCity']}")
+    #         print(f"Country: {elem['nameCountry']}")
+    # TODO  RETURN SHOULD BE IMPLEMENTED
 
-    # For IATA generate new data structure and store it under iata_from / generate link with IATA
-    # create file iata_from
-
-def check_connections_for_iata_from():
-    # using other json check connections for iata_from
+def check_connections_for_iata():
+    # using other json check connections for iata
     # print ot for user
     # call choose_airport_to_codeIAtaAirport() to choose by user airport
     # check if iata exists. If not, try again until exists
@@ -130,8 +129,8 @@ def check_connection():
 
 cities_list = find_city_and_airports("departure")
 format_cities_list(cities_list)
-# choose_airport_from_codeIataAirport(cities_list)
+return_specific_airport(cities_list)
 print("\n")
 cities_list = find_city_and_airports("arriaval")
 format_cities_list(cities_list)
-# choose_airport_from_codeIataAirport(cities_list)
+return_specific_airport(cities_list)
