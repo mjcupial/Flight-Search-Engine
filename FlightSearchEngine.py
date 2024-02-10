@@ -104,13 +104,14 @@ def return_specific_airport(iata_generated):
     iata = input("\nType the IATA code from generated list: ").upper()
     while iata not in iata_list:
         iata = input(f"Your IATA code ({iata}) is not on the list. Please type again: ").upper()
-    for elem in iata_generated:
-        if iata in elem['codeIataAirport']:
-            airport_index = elem['codeIataAirport'].index(iata)
-            airport_name = elem['nameAirport'][airport_index]
-            print(f"\nAirport: {iata} ({airport_name})")
-            print(f"City: {elem['nameCity']}")
-            print(f"Country: {elem['nameCountry']}")
+    # for elem in iata_generated:
+    #     if iata in elem['codeIataAirport']:
+    #         airport_index = elem['codeIataAirport'].index(iata)
+    #         airport_name = elem['nameAirport'][airport_index]
+    #         print(f"\nAirport: {iata} ({airport_name})")
+    #         print(f"City: {elem['nameCity']}")
+    #         print(f"Country: {elem['nameCountry']}")
+    # TODO  RETURN SHOULD BE IMPLEMENTED
 
 def check_connections_for_iata():
     # using other json check connections for iata
