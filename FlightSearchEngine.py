@@ -33,8 +33,8 @@ def read_data(input):
         file.close()
         return data
 
-def delete_duplicates_city_and_airports(data):
-    """Delete duplicates and format data for city_and_airport"""
+def delete_duplicates_city_and_airportss(data):
+    """Delete duplicates and format data for city_and_airports"""
     unique_data = {}
     for elem in data:
         key = (elem['nameCountry'], elem['nameCity'])
@@ -55,7 +55,7 @@ def delete_duplicates_city_and_airports(data):
     unique_list = list(unique_data.values())
     return unique_list
 
-def find_city_and_airport(direction):
+def find_city_and_airports(direction):
     """Type your city and find departure airport"""
     city = input(f"Please type {direction} city: ")
     city = city[0].upper() + city[1:].lower()
@@ -64,28 +64,28 @@ def find_city_and_airport(direction):
     airports = read_data("Airports.json")       # <-- from file
     # cities = generate_request('cities')       # <-- origin
     # airports = generate_request('airports')   # <-- origin
-    city_and_airport = []
+    city_and_airports = []
     for elem_city in cities:
         if elem_city['nameCity'] == city:
             codeIataCity = elem_city['codeIataCity']
-            for elem_airports in airports:
-                if elem_airports['codeIataCity'] == codeIataCity:
-                    tpl_city_and_airport = {
-                        'nameCountry':elem_airports['nameCountry'],
+            for elem_airport in airports:
+                if elem_airport['codeIataCity'] == codeIataCity:
+                    tpl_city_and_airports = {
+                        'nameCountry':elem_airport['nameCountry'],
                         'codeIso2Country':elem_city['codeIso2Country'],
                         'nameCity':elem_city['nameCity'],
                         'codeIataCity':elem_city['codeIataCity'],
-                        'nameAirport':elem_airports['nameAirport'],
-                        'codeIataAirport':elem_airports['codeIataAirport'],
-                        'codeIcaoAirport':elem_airports['codeIcaoAirport']
+                        'nameAirport':elem_airport['nameAirport'],
+                        'codeIataAirport':elem_airport['codeIataAirport'],
+                        'codeIcaoAirport':elem_airport['codeIcaoAirport']
                     }
-                    city_and_airport.append(tpl_city_and_airport)
-    city_and_airport = delete_duplicates_city_and_airports(city_and_airport)
-    return_data_to_file(city_and_airport, "cities_and_airports.json")
-    if bool(city_and_airport) == False:
+                    city_and_airports.append(tpl_city_and_airports)
+    city_and_airports = delete_duplicates_city_and_airportss(city_and_airports)
+    return_data_to_file(city_and_airports, "cities_and_airports.json")
+    if bool(city_and_airports) == False:
         print(f"Sorry, but {city} city doesn't exists on the list")
     else:
-        return city_and_airport
+        return city_and_airports
 
 def format_cities_list(cities_list):
     """
@@ -95,7 +95,7 @@ def format_cities_list(cities_list):
     for elem in cities_list:
         print(f"{elem['nameCity'].upper()} ({elem['nameCountry']}):")
         for e in elem['nameAirport']:
-            print(f"\t{e} ({elem['codeIataAirport'][elem['nameAirport'].index(e)]})")
+            print(f"\t{e} | IATA: {elem['codeIataAirport'][elem['nameAirport'].index(e)]}")
 
 
 def choose_airport_from_codeIataAirport(iata_generated):
@@ -128,10 +128,10 @@ def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport("departure")
+cities_list = find_city_and_airports("departure")
 format_cities_list(cities_list)
-choose_airport_from_codeIataAirport(cities_list)
+# choose_airport_from_codeIataAirport(cities_list)
 print("\n")
-cities_list = find_city_and_airport("arriaval")
+cities_list = find_city_and_airports("arriaval")
 format_cities_list(cities_list)
-choose_airport_from_codeIataAirport(cities_list)
+# choose_airport_from_codeIataAirport(cities_list)
