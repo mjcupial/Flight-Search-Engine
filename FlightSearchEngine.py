@@ -65,16 +65,16 @@ def find_city_and_airport(direction):
     # cities = generate_request('cities')       # <-- origin
     # airports = generate_request('airports')   # <-- origin
     city_and_airport = []
-    for elem_cities in cities:
-        if elem_cities['nameCity'] == city:
-            codeIataCity = elem_cities['codeIataCity']
+    for elem_city in cities:
+        if elem_city['nameCity'] == city:
+            codeIataCity = elem_city['codeIataCity']
             for elem_airports in airports:
                 if elem_airports['codeIataCity'] == codeIataCity:
                     tpl_city_and_airport = {
                         'nameCountry':elem_airports['nameCountry'],
-                        'codeIso2Country':elem_cities['codeIso2Country'],
-                        'nameCity':elem_cities['nameCity'],
-                        'codeIataCity':elem_cities['codeIataCity'],
+                        'codeIso2Country':elem_city['codeIso2Country'],
+                        'nameCity':elem_city['nameCity'],
+                        'codeIataCity':elem_city['codeIataCity'],
                         'nameAirport':elem_airports['nameAirport'],
                         'codeIataAirport':elem_airports['codeIataAirport'],
                         'codeIcaoAirport':elem_airports['codeIcaoAirport']
