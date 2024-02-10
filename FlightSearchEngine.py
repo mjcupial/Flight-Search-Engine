@@ -14,6 +14,8 @@ fl_request = {
 
 def generate_request(fl_request_key):
     """function for generate requests based on fl_request dictionary"""
+    if type(fl_key) != str:
+        raise Exception("Check your fl_key value")
     response = requests.get(
         f"https://app.goflightlabs.com/{fl_request[fl_request_key]}?access_key=" + fl_key
     )
@@ -53,9 +55,9 @@ def delete_duplicates_city_and_airports(data):
     unique_list = list(unique_data.values())
     return unique_list
 
-def find_city_and_airport(city):
+def find_city_and_airport(direction):
     """Type your city and find departure airport"""
-    # city = input("Please type departure city: ")
+    city = input(f"Please type {direction} city: ")
     city = city[0].upper() + city[1:].lower()
     print("Please wait for proccessing data...")
     cities = read_data("Cities.json")           # <-- from file
@@ -126,7 +128,10 @@ def check_connection():
     """Check connection from your 'start airport'"""
     pass
 
-cities_list = find_city_and_airport("PAris")
-# print(cities_list)
+cities_list = find_city_and_airport("departure")
+format_cities_list(cities_list)
+choose_airport_from_codeIataAirport(cities_list)
+print("\n")
+cities_list = find_city_and_airport("arriaval")
 format_cities_list(cities_list)
 choose_airport_from_codeIataAirport(cities_list)
