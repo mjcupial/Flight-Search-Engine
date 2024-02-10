@@ -1,5 +1,5 @@
 import unittest
-from FlightSearchEngine import *
+
 
 class ActivityTests(unittest.TestCase):
     def test_city_exist(self):
