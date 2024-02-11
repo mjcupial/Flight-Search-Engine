@@ -28,5 +28,9 @@ def generate_future_flights_request(type, iata, date):
 
 # data = generate_request()
 
-data = generate_future_flights_request('departure', 'WRO', '2024-02-20')
-save_data_to_file(data, "test.json")
+# day = datetime.today() + timedelta(days=7)).strftime('%Y-%m-%d')
+# data = generate_future_flights_request('departure', 'WRO', day)
+# save_data_to_file(data, "test.json")
+
+departures = read_data_from_file("test.json")
+
